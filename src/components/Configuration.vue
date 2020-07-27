@@ -93,28 +93,32 @@
                 this.rounds_generated = false;
                 this.rounds = [];
                 this.rounds.push({
-                    key: Date.now(),
+                    key: this.form.total_number_of_coins,
                     number_of_coins: this.form.total_number_of_coins,
                 });
                 let i = 2;
                 let quotient = Math.floor(this.form.total_number_of_coins/i);
                 let remainder = Math.floor(this.form.total_number_of_coins%i);
                 while(quotient >= 1){
+                    quotient = Math.floor(this.form.total_number_of_coins/i);
+                    remainder = Math.floor(this.form.total_number_of_coins%i);
                     if(remainder === 0){
                         this.rounds.push({
-                            key: Date.now(),
-                            number_of_coins: Math.floor(this.form.total_number_of_coins/i),
+                            key: quotient,
+                            number_of_coins: quotient,
                         });
                     }
                     i = i + 2;
-                    quotient = Math.floor(this.form.total_number_of_coins/i);
-                    remainder = Math.floor(this.form.total_number_of_coins%i);
                 }
                 this.rounds_generated = true;
                 this.loading = false;
             },
             play(){
-
+                this.$emit('play', {
+                    rounds: this.rounds,
+                    number_of_players: this.number_of_players,
+                    total_number_of_coins: this.total_number_of_coins,
+                });
             }
         }
     }

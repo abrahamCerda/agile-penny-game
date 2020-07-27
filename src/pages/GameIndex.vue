@@ -1,6 +1,7 @@
 <template>
     <div class="container custom-body">
-        <configuration></configuration>
+        <configuration @play="onPlay" v-if="!isAlreadyConfigured">
+        </configuration>
     </div>
 </template>
 
@@ -10,9 +11,19 @@
     export default {
         name: "GameIndex",
         components: {Configuration},
+        computed: {
+            isAlreadyConfigured(){
+                return this.configurationResult !== null;
+            }
+        },
         data: () => {
             return {
-
+                configurationResult: null,
+            }
+        },
+        methods: {
+            onPlay(configurationResult){
+                this.configurationResult = configurationResult;
             }
         }
     }
