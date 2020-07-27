@@ -1,28 +1,40 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header></Header>
+    <game-index></game-index>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import GameIndex from "./pages/GameIndex";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Footer,
+    Header,
+    GameIndex,
   }
 }
 </script>
 
 <style>
-#app {
+  @import "~bootstrap-css-only/css/bootstrap.css";
+/*#app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}*/
+:root {
+  --main-color: #00a99d;
+  --header-height: 60px;
+  --header1-height: 60px;
+  --footer-height: 60px;
 }
 </style>
