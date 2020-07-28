@@ -1,16 +1,20 @@
 <template>
-    <div class="container custom-body">
+    <div class="custom-body">
         <configuration @play="onPlay" v-if="!isAlreadyConfigured">
         </configuration>
+        <board v-if="isAlreadyConfigured"
+               :configuration-result="configurationResult">
+        </board>
     </div>
 </template>
 
 <script>
     import Configuration from "../components/Configuration";
+    import Board from "../components/Board";
 
     export default {
         name: "GameIndex",
-        components: {Configuration},
+        components: {Configuration, Board},
         computed: {
             isAlreadyConfigured(){
                 return this.configurationResult !== null;

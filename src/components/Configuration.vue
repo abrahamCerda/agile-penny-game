@@ -1,55 +1,57 @@
 <template>
-    <div class="row align-items-center">
-        <div class="col-12" v-show="loading">
-            Cargando...
-        </div>
-        <div class="col-12" v-show="!loading">
-            <h1 class="instructions-title text-center">
-                ¡Bienvenido al juego de de las monedas!
-            </h1>
-            <p class="instructions">
-                Para jugar este juego, sigue las instrucciones...
-            </p>
-        </div>
-        <div class="col-auto" v-show="!loading">
-            <el-form :model="form" ref="form" :rules="rules">
-                <el-form-item prop="number_of_players"
-                              label="Número de jugadores">
-                    <el-input-number v-model="form.number_of_players" controls-position="right"
-                                     :min="min_number_of_players" :max="max_number_of_players"></el-input-number>
-                </el-form-item>
-                <el-form-item prop="total_number_of_coins"
-                              label="Número total de monedas">
-                    <el-input-number v-model="form.total_number_of_coins" controls-position="right"
-                                     :min="min_number_of_coins">
-                    </el-input-number>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="generateRounds">Generar Rondas</el-button>
-                </el-form-item>
-            </el-form>
-        </div>
-        <div clas="col-auto" v-if="!loading && rounds_generated">
-            <p>
-                Rondas
-            </p>
-            <div class="row" v-for="(round, index) in rounds"
-                          :key="round.key">
-                <div class="col-6">
-                    <p v-if="round.number_of_coins > 1">
-                        Lotes de {{round.number_of_coins}} monedas en la ronda {{index + 1}}
-                    </p>
-                    <p v-else>
-                        Lotes de {{round.number_of_coins}} moneda en la ronda {{index + 1}}
-                    </p>
-                </div>
-                <div class="col-6">
-                    <el-button class="ml-2" type="danger" icon="el-icon-delete" circle
-                               @click.prevent="removeRound(round)" v-if="index !== 0">
-                    </el-button>
-                </div>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12" v-show="loading">
+                Cargando...
             </div>
-            <el-button type="primary" @click="play">Jugar</el-button>
+            <div class="col-12" v-show="!loading">
+                <h1 class="instructions-title text-center">
+                    ¡Bienvenido al juego de de las monedas!
+                </h1>
+                <p class="instructions">
+                    Para jugar este juego, sigue las instrucciones...
+                </p>
+            </div>
+            <div class="col-auto" v-show="!loading">
+                <el-form :model="form" ref="form" :rules="rules">
+                    <el-form-item prop="number_of_players"
+                                  label="Número de jugadores">
+                        <el-input-number v-model="form.number_of_players" controls-position="right"
+                                         :min="min_number_of_players" :max="max_number_of_players"></el-input-number>
+                    </el-form-item>
+                    <el-form-item prop="total_number_of_coins"
+                                  label="Número total de monedas">
+                        <el-input-number v-model="form.total_number_of_coins" controls-position="right"
+                                         :min="min_number_of_coins">
+                        </el-input-number>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="generateRounds">Generar Rondas</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+            <div clas="col-auto" v-if="!loading && rounds_generated">
+                <p>
+                    Rondas
+                </p>
+                <div class="row" v-for="(round, index) in rounds"
+                     :key="round.key">
+                    <div class="col-6">
+                        <p v-if="round.number_of_coins > 1">
+                            Lotes de {{round.number_of_coins}} monedas en la ronda {{index + 1}}
+                        </p>
+                        <p v-else>
+                            Lotes de {{round.number_of_coins}} moneda en la ronda {{index + 1}}
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <el-button class="ml-2" type="danger" icon="el-icon-delete" circle
+                                   @click.prevent="removeRound(round)" v-if="index !== 0">
+                        </el-button>
+                    </div>
+                </div>
+                <el-button type="primary" @click="play">Jugar</el-button>
+            </div>
         </div>
     </div>
 </template>
@@ -116,8 +118,8 @@
             play(){
                 this.$emit('play', {
                     rounds: this.rounds,
-                    number_of_players: this.number_of_players,
-                    total_number_of_coins: this.total_number_of_coins,
+                    number_of_players: this.form.number_of_players,
+                    total_number_of_coins: this.form.total_number_of_coins,
                 });
             }
         }
