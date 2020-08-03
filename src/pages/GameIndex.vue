@@ -33,8 +33,11 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .custom-body {
-        margin-bottom: var(--footer-height);
+        height: 100%;
+        overflow: auto;
+        padding-top: $header-height + $header1-height;
+        padding-bottom: $footer-height;
     }
 </style>

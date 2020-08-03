@@ -1,8 +1,14 @@
 <template>
-    <div class="container-fluid">
-        <div class="row custom-header">
-            <div class="col">
+    <div class="container-fluid fixed-top custom-header">
+        <div class="row">
+            <div class="col-4">
                 HEADER
+            </div>
+            <div class="col-4">
+
+            </div>
+            <div class="col-4">
+
             </div>
         </div>
         <div class="row">
@@ -19,8 +25,9 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .custom-header {
-        background-color: var(--main-color);
+        background-color: $main-color;
+        height: $header-height + $header1-height;
     }
 </style>

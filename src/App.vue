@@ -21,20 +21,12 @@ export default {
 }
 </script>
 
-<style>
-  @import "~bootstrap-css-only/css/bootstrap.css";
-/*#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}*/
-:root {
-  --main-color: #00a99d;
-  --header-height: 60px;
-  --header1-height: 60px;
-  --footer-height: 60px;
-}
+<style lang="scss">
+  @import "~bootstrap/dist/css/bootstrap.css";
+  @import "./assets/global_variables.scss";
+
+  #app {
+    height: 100%;
+    overflow: auto;
+  }
 </style>

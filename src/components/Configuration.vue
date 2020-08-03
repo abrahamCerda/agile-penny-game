@@ -64,7 +64,7 @@
                 loading: false,
                 rounds_generated: false,
                 max_number_of_players: 5,
-                min_number_of_players: 1,
+                min_number_of_players: 2,
                 min_number_of_coins: 20,
                 rounds: [],
                 form: {

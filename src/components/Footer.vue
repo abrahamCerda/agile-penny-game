@@ -1,6 +1,6 @@
 <template>
-    <footer class="container-fluid">
-        <div class="row custom-footer">
+    <footer class="container-fluid custom-footer fixed-bottom">
+        <div class="row">
             <div class="col">
                 FOOTER
             </div>
@@ -14,12 +14,9 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .custom-footer {
         background-color: black;
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: var(--footer-height);
+        height: $footer-height;
     }
 </style>

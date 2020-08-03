@@ -1,10 +1,12 @@
 <template>
-    <div class="container">
+    <div class="container border border-right-0 border-dark">
         <div class="row">
-            <div :class="colClass" v-for="index in configurationResult.number_of_players"
+            <div class="col border-right border-dark" v-for="index in configurationResult.number_of_players"
                  :key="index">
                 <player-zone :id="index" :start="index === 1" :end="index ===
-                 configurationResult.number_of_players">
+                 configurationResult.number_of_players"
+                             :number_of_coins="configurationResult.total_number_of_coins"
+                :playing="isPlayerPlaying(index)">
                 </player-zone>
             </div>
         </div>
@@ -14,7 +16,6 @@
 <script>
     import PlayerZone from "./PlayerZone";
 
-    const MAX_COLS = 12; // Bootstrap max cols
     export default {
         name: "Board",
         components: {
@@ -23,12 +24,16 @@
         props:['configurationResult'],
         data() {
             return {
-                colClass: 'col-'
+                colClass: 'col-',
+                playingPlayer: 1,
             }
         },
         created() {
-            const colEqualWidth = Math.floor(MAX_COLS/this.configurationResult.number_of_players);
-            this.colClass = `${this.colClass}${colEqualWidth}`;
+        },
+        methods: {
+            isPlayerPlaying(playerIndex){
+                return this.playingPlayer === playerIndex;
+            }
         }
     }
 </script>
