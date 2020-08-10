@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="row align-items-center">
+        <div class="row">
             <div class="col-12" v-show="loading">
                 Cargando...
             </div>
@@ -8,49 +8,58 @@
                 <h1 class="instructions-title text-center">
                     ¡Bienvenido al juego de de las monedas!
                 </h1>
+            </div>
+            <div class="col-6" v-show="!loading">
                 <p class="instructions">
-                    Para jugar este juego, sigue las instrucciones...
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique, turpis id ultricies condimentum, turpis nisl laoreet est, non ultricies ipsum magna sed turpis. Ut augue felis, laoreet non massa at, ullamcorper congue diam. Nam laoreet sagittis feugiat. Vestibulum vitae elit facilisis, suscipit nunc at, hendrerit lorem. Nullam nec porttitor quam, ut viverra nisi. Pellentesque viverra enim nisl, eget ornare libero tempus eu. Integer blandit varius neque laoreet ullamcorper. Sed maximus magna at tellus imperdiet cursus. Integer varius, nisi lobortis finibus efficitur, nisi orci volutpat odio, sed luctus augue ante at tortor. Cras tempor auctor tortor vitae iaculis.
+
+                    Aenean sit amet euismod enim. Ut finibus imperdiet magna vel placerat. Vivamus ut eros mi. Cras sollicitudin ultricies ligula. Sed quis nulla id ipsum vestibulum commodo. Donec id nulla quis nisi mollis suscipit sit amet porttitor turpis. Vestibulum cursus scelerisque sem sit amet vehicula. Nam sodales in nisl ac elementum. Nunc euismod sodales libero, et faucibus neque sagittis nec. Maecenas mattis ornare nisi quis cursus. Nulla facilisi. Nam eu tincidunt leo. Mauris ultricies arcu ex, et lacinia tortor pellentesque in. Vestibulum sed mollis sem, sit amet viverra eros. Nunc congue lacus libero.
+
+                    Sed dictum eleifend arcu, sed faucibus ligula pellentesque nec. Praesent euismod pharetra lacus a porttitor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam erat volutpat. Aliquam in iaculis magna. Nullam egestas erat ac interdum aliquet. Nullam vitae fermentum diam, eleifend blandit nunc. Vestibulum rutrum tempus lorem quis lacinia. Integer consequat ante a dolor pellentesque, quis sollicitudin dui accumsan. Mauris pellentesque lacus ut ex vestibulum, sit amet laoreet nibh scelerisque. Cras non tortor eget lacus tincidunt pellentesque ac ornare felis. Donec quis lectus ullamcorper, tempus lectus quis, sollicitudin tortor. Fusce nec sem aliquam, venenatis elit at, fermentum ipsum. Nullam id mi sed ipsum gravida consequat.
+
+                    Duis mauris risus, efficitur at tortor sit amet, blandit vulputate nisl. Quisque vel diam a nisi rhoncus vehicula ut sed leo. Pellentesque pellentesque dignissim posuere. Praesent a magna euismod, feugiat mauris dictum, tincidunt augue. Mauris tempus felis eget tincidunt euismod. Aliquam massa nibh, tristique et nibh eu, congue hendrerit purus. Nunc sodales lobortis blandit. Aenean nec arcu eget lacus interdum lacinia feugiat non arcu. Nam ut neque libero. Nunc ac ligula vel magna elementum elementum a cursus ipsum. Nam imperdiet a metus sit amet tempus. Phasellus sed lorem scelerisque, scelerisque nulla non, commodo nisl. Suspendisse est dolor, dignissim at viverra sed, vestibulum ac neque. Nulla et purus dapibus, mollis elit vel, sagittis ex. Morbi sit amet dignissim ante.
+
+                    Ut et egestas diam. Donec tempor lacinia convallis. Suspendisse sed nisl maximus, volutpat massa non, posuere velit. Sed fermentum aliquet justo, nec sodales nunc viverra quis. In ullamcorper mauris velit, quis ornare nunc commodo eu. Duis volutpat libero quis lobortis cursus. Donec porta sem et est convallis consequat. Vestibulum tempor ligula et mauris sollicitudin, nec lobortis metus luctus. Phasellus accumsan metus eget eros blandit, quis porta lectus convallis. Donec ultrices quis tellus id pharetra. Etiam nec sapien sit amet sem feugiat iaculis. Aliquam vulputate iaculis tempus.
+
+                    Vivamus et libero urna. Quisque vitae nulla ut quam pretium tincidunt. Curabitur elementum porttitor quam vitae molestie. Sed ut dolor scelerisque, accumsan arcu non, varius lectus. Pellentesque dignissim turpis et lacus tempus, sit amet feugiat lacus sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla condimentum metus neque, vitae iaculis sapien fermentum et. Etiam ultrices lobortis turpis sed blandit. Nunc vel consectetur sem, at tincidunt magna.
                 </p>
             </div>
-            <div class="col-auto" v-show="!loading">
-                <el-form :model="form" ref="form" :rules="rules">
-                    <el-form-item prop="number_of_players"
-                                  label="Número de jugadores">
-                        <el-input-number v-model="form.number_of_players" controls-position="right"
-                                         :min="min_number_of_players" :max="max_number_of_players"></el-input-number>
-                    </el-form-item>
-                    <el-form-item prop="total_number_of_coins"
-                                  label="Número total de monedas">
-                        <el-input-number v-model="form.total_number_of_coins" controls-position="right"
-                                         :min="min_number_of_coins">
-                        </el-input-number>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button type="primary" @click="generateRounds">Generar Rondas</el-button>
-                    </el-form-item>
-                </el-form>
-            </div>
-            <div clas="col-auto" v-if="!loading && rounds_generated">
-                <p>
-                    Rondas
-                </p>
-                <div class="row" v-for="(round, index) in rounds"
-                     :key="round.key">
-                    <div class="col-6">
-                        <p v-if="round.number_of_coins > 1">
-                            Lotes de {{round.number_of_coins}} monedas en la ronda {{index + 1}}
-                        </p>
-                        <p v-else>
-                            Lotes de {{round.number_of_coins}} moneda en la ronda {{index + 1}}
-                        </p>
+            <div class="col-5 offset-1 text-center" v-if="!loading">
+                <el-card class="box-card">
+                    <div v-if="!rounds_generated">
+                        <el-form :model="form" ref="form" :rules="rules">
+                            <el-form-item prop="number_of_players"
+                                          label="Número de jugadores">
+                                <el-input-number v-model="form.number_of_players" controls-position="right"
+                                                 :min="min_number_of_players" :max="max_number_of_players"></el-input-number>
+                            </el-form-item>
+                            <el-form-item prop="total_number_of_coins"
+                                          label="Número total de monedas">
+                                <el-input-number v-model="form.total_number_of_coins" controls-position="right"
+                                                 :min="min_number_of_coins">
+                                </el-input-number>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="generateRounds">Generar Rondas</el-button>
+                            </el-form-item>
+                        </el-form>
                     </div>
-                    <div class="col-6">
-                        <el-button class="ml-2" type="danger" icon="el-icon-delete" circle
-                                   @click.prevent="removeRound(round)" v-if="index !== 0">
-                        </el-button>
+                    <div v-else>
+                        <h5>
+                            {{rounds.length}} Rondas
+                        </h5>
+                        <p class="card-text" v-for="(round, index) in rounds"
+                           :key="round.key">
+                            <span v-if="round.number_of_coins > 1">
+                                Lotes de {{round.number_of_coins}} monedas en la ronda {{index + 1}}
+                            </span>
+                            <span v-else>
+                                Lotes de {{round.number_of_coins}} moneda en la ronda {{index + 1}}
+                            </span>
+                        </p>
+                        <el-button type="primary" @click="play">Jugar</el-button>
                     </div>
-                </div>
-                <el-button type="primary" @click="play">Jugar</el-button>
+                </el-card>
             </div>
         </div>
     </div>
