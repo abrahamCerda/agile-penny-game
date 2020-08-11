@@ -106,7 +106,10 @@
                 if(playerIndex === this.players.length -1 && movedCoins.length === this.configurationResult.total_number_of_coins){
                     this.actualRoundIndex++;
                     if(this.isLastRound){
-                        return;
+                      this.emit('endgame', {
+                        timer: this.timer,
+                      });
+                      return;
                     }
                     for(const player of this.players){
                         player.movedCoins = [];
