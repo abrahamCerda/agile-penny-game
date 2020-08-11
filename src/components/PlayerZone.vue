@@ -40,6 +40,7 @@
             return {
                 selectedCoins: [],
                 movedCoins: [],
+              firstSelectionDone: false
             }
         },
         computed: {
@@ -52,11 +53,12 @@
               return firstPlayerNotMovedAll || notFirstPlayerNotMovedAll;
             }
         },
-      created(){
-        this.constructor.width = this.nume
-      },
         methods: {
             onCoinSelection(rowsIndex, colsIndex){
+              if(!this.selectedCoins.length && !this.firstSelectionDone){
+                this.firstSelectionDone = true;
+                this.$emit('firstSelectionDone', this.player.id);
+              }
                 const alreadySelected = this.selectedCoins.some(coin => coin.row === rowsIndex && coin.col === colsIndex);
                 if(alreadySelected){
                     return;

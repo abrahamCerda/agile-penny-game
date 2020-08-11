@@ -1,6 +1,6 @@
 <template>
-    <div class="container mt-5">
-      <timer :running="runClock"></timer>
+    <div class="container my-5">
+      <timer :running="timer.running" v-on:timeChange="onTimeChange"></timer>
         <h1 class="text-center">
             Ronda {{actualRoundIndex + 1}}
         </h1>
@@ -22,7 +22,7 @@
                              :distribution="distribution"
                              :coin-config="coinConfig"
                              v-on:playerMoveCoins="onPlayerMoveCoins"
-                             v-on:timeChange="onTimeChange">
+                              v-on:firstSelectionDone="onFirstSelectionDone">
                 </player-zone>
             </div>
         </div>
@@ -65,6 +65,10 @@
               timer: {
                   running: true,
                 actualTime: null,
+              },
+              events: {
+                  firstSelectionDone: {},
+                lastMovementDone: {}
               }
             }
         },
@@ -76,6 +80,7 @@
         created() {
             for(let i = 0; i < this.configurationResult.number_of_players; i ++){
                 this.players.push({
+                    id: i,
                     movedCoins: [],
                 });
             }
@@ -100,6 +105,9 @@
             },
           onTimeChange(timeData){
               this.timer.actualTime = timeData;
+          },
+          onFirstSelectionDone(playerId){
+              this.events.firstSelectionDone[playerId] = this.timer.actualTime;
           }
         }
     }
