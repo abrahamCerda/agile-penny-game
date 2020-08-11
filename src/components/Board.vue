@@ -93,6 +93,16 @@
                 const playerIndex = moveData.playerIndex;
                 const movedCoins = moveData.movedCoins;
                 this.players[playerIndex].movedCoins = movedCoins;
+                if(movedCoins.length === this.configurationResult.total_number_of_coins) {
+                  /* Register time for the last movement of coins done by the user*/
+                  if(this.events.lastMovementDone[this.actualRoundIndex] === undefined){
+                    this.events.lastMovementDone[this.actualRoundIndex] = {};
+                    this.events.lastMovementDone[this.actualRoundIndex][playerIndex] = this.timer.actualTime;
+                  }
+                  else{
+                    this.events.lastMovementDone[this.actualRoundIndex][playerIndex] = this.timer.actualTime;
+                  }
+                }
                 if(playerIndex === this.players.length -1 && movedCoins.length === this.configurationResult.total_number_of_coins){
                     this.actualRoundIndex++;
                     if(this.isLastRound){
@@ -107,7 +117,12 @@
               this.timer.actualTime = timeData;
           },
           onFirstSelectionDone(playerId){
-              this.events.firstSelectionDone[playerId] = this.timer.actualTime;
+              if(this.events.firstSelectionDone[this.actualRoundIndex] === undefined) {
+                this.events.firstSelectionDone[this.actualRoundIndex] = {};
+                this.events.firstSelectionDone[this.actualRoundIndex][playerId] = this.timer.actualTime;
+                return;
+              }
+              this.events.firstSelectionDone[this.actualRoundIndex][playerId] = this.timer.actualTime;
           }
         }
     }

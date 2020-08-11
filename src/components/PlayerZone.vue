@@ -80,6 +80,7 @@
                 });
                 if(this.movedCoins.length === this.totalCoins){
                     this.movedCoins = [];
+                    this.firstSelectionDone = false;
                 }
                 this.selectedCoins = [];
             },
