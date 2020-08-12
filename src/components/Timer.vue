@@ -12,7 +12,7 @@
 <script>
 export default {
   name: "Timer",
-  props: ['running', 'paused'],
+  props: ['running', 'restart'],
   data(){
     return {
       currentDate: 0
@@ -42,6 +42,11 @@ export default {
     seconds(){
       return Math.floor((this.currentDate/1000) % 60);
     },
+  },
+  watch: {
+    restart(){
+      this.currentDate = 0;
+    }
   },
   filters: {
     formatTime(value) {

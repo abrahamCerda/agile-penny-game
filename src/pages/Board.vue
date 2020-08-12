@@ -1,7 +1,7 @@
 <template>
     <div class="container my-5">
       <el-button type="primary" @click="stopPlayTimer">
-        <timer :running="timer.running" v-on:timeChange="onTimeChange"></timer>
+        <timer :running="timer.running" :restart="timer.restart"  v-on:timeChange="onTimeChange"></timer>
       </el-button>
         <h1 class="text-center">
             Ronda {{actualRoundIndex + 1}}
@@ -14,7 +14,7 @@
             Deben mover lotes de {{this.configurationResult.rounds[actualRoundIndex].number_of_coins}}
             moneda hasta haber movido todas las monedas de su lugar
         </p>
-        <div class="row no-gutters" v-if="showPlayerZones">
+        <div class="row no-gutters" v-show="showPlayerZones">
             <div class="col-12 col-sm" v-for="(player, index) in players"
                  :key="index">
                 <player-zone :id="index" :start="index === 0" :end="index === players.length - 1"
@@ -66,6 +66,7 @@
               },
               timer: {
                   running: false,
+                restart: false,
                   actualTime: null,
               },
               results: [],
@@ -113,6 +114,8 @@
                         player.movedCoins = [];
                     }
                     this.actualRoundIndex++;
+                    this.timer.restart = true;
+                    this.timer.running = false;
                 }
             },
           onTimeChange(timeData){
@@ -127,6 +130,7 @@
               });
           },
           stopPlayTimer(){
+              this.timer.restart = false;
               this.timer.running = !this.timer.running;
           }
         }
