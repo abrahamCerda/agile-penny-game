@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    import PlayerZone from "./PlayerZone";
+    import PlayerZone from "../components/PlayerZone";
     import Timer from "@/components/Timer";
     const coinsDistribution = {
         20: {
@@ -66,10 +66,7 @@
                   running: true,
                 actualTime: null,
               },
-              events: {
-                  firstSelectionDone: {},
-                lastMovementDone: {}
-              }
+              results: []
             }
         },
         computed: {
@@ -95,37 +92,34 @@
                 this.players[playerIndex].movedCoins = movedCoins;
                 if(movedCoins.length === this.configurationResult.total_number_of_coins) {
                   /* Register time for the last movement of coins done by the user*/
-                  if(this.events.lastMovementDone[this.actualRoundIndex] === undefined){
-                    this.events.lastMovementDone[this.actualRoundIndex] = {};
-                    this.events.lastMovementDone[this.actualRoundIndex][playerIndex] = this.timer.actualTime;
-                  }
-                  else{
-                    this.events.lastMovementDone[this.actualRoundIndex][playerIndex] = this.timer.actualTime;
-                  }
+                  this.results[this.actualRoundIndex][playerIndex].lastMovementDone = this.timer.actualTime;
                 }
                 if(playerIndex === this.players.length -1 && movedCoins.length === this.configurationResult.total_number_of_coins){
-                    this.actualRoundIndex++;
                     if(this.isLastRound){
-                      this.emit('endgame', {
-                        timer: this.timer,
+                      this.$emit('endgame', {
+                        results: this.results,
                       });
                       return;
                     }
                     for(const player of this.players){
                         player.movedCoins = [];
                     }
+                    this.actualRoundIndex++;
                 }
             },
           onTimeChange(timeData){
               this.timer.actualTime = timeData;
           },
           onFirstSelectionDone(playerId){
-              if(this.events.firstSelectionDone[this.actualRoundIndex] === undefined) {
-                this.events.firstSelectionDone[this.actualRoundIndex] = {};
-                this.events.firstSelectionDone[this.actualRoundIndex][playerId] = this.timer.actualTime;
-                return;
+              if(this.results[this.actualRoundIndex] === undefined){
+                this.results[this.actualRoundIndex] = [];
               }
-              this.events.firstSelectionDone[this.actualRoundIndex][playerId] = this.timer.actualTime;
+              this.results[this.actualRoundIndex].push({
+                round: this.actualRoundIndex,
+                playerId,
+                firstSelectionDone: this.timer.actualTime,
+                lastMovementDone: null,
+              });
           }
         }
     }

@@ -1,33 +1,43 @@
 <template>
     <div class="custom-body">
-        <configuration @play="onPlay" v-if="!isAlreadyConfigured">
+        <configuration @play="onPlay" v-if="!isAlreadyConfigured && !gameFinished">
         </configuration>
-        <board v-if="isAlreadyConfigured"
-               :configuration-result="configurationResult">
+        <board v-if="isAlreadyConfigured && !gameFinished"
+               :configuration-result="configurationResult" v-on:endgame="onEndgame">
         </board>
+      <game-result v-if="gameFinished" :results="results">
+      </game-result>
     </div>
 </template>
 
 <script>
     import Configuration from "../components/Configuration";
-    import Board from "../components/Board";
+    import Board from "./Board";
+    import GameResult from "@/pages/GameResult";
 
     export default {
         name: "GameIndex",
-        components: {Configuration, Board},
+        components: {GameResult, Configuration, Board},
         computed: {
             isAlreadyConfigured(){
                 return this.configurationResult !== null;
-            }
+            },
+          gameFinished(){
+              return this.timer !== null;
+          }
         },
         data: () => {
             return {
                 configurationResult: null,
+              timer: null
             }
         },
         methods: {
             onPlay(configurationResult){
                 this.configurationResult = configurationResult;
+            },
+            onEndgame(results){
+              this.results = results;
             }
         }
     }
