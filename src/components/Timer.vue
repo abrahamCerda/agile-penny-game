@@ -1,16 +1,21 @@
 <template>
-<p>
-  {{hours | formatTime}}:{{minutes | formatTime}}:{{seconds |formatTime}}
-</p>
+  <div>
+    <p v-if="running || (!running && !currentDate)">
+      {{hours | formatTime}}:{{minutes | formatTime}}:{{seconds |formatTime}}
+    </p>
+    <p v-else-if="currentDate !== 0">
+      PAUSADO
+    </p>
+  </div>
 </template>
 
 <script>
 export default {
   name: "Timer",
-  props: ['running'],
+  props: ['running', 'paused'],
   data(){
     return {
-      currentDate: null
+      currentDate: 0
     }
   },
   mounted(){
@@ -36,7 +41,7 @@ export default {
     },
     seconds(){
       return Math.floor((this.currentDate/1000) % 60);
-    }
+    },
   },
   filters: {
     formatTime(value) {
