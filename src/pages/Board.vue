@@ -84,6 +84,9 @@
             this.distribution = coinsDistribution[this.configurationResult.total_number_of_coins];
             this.coinConfig.width = this.configurationResult.number_of_players > 4 ? '25px': '30px';
             this.coinConfig.height = this.configurationResult.number_of_players > 4 ? '25px': '30px';
+            for(let i = 0; i < this.configurationResult.rounds.length; i++){
+              this.results.push([]);
+            }
         },
         methods: {
             onPlayerMoveCoins(moveData){
@@ -111,9 +114,6 @@
               this.timer.actualTime = timeData;
           },
           onFirstSelectionDone(playerId){
-              if(this.results[this.actualRoundIndex] === undefined){
-                this.results[this.actualRoundIndex] = [];
-              }
               this.results[this.actualRoundIndex].push({
                 round: this.actualRoundIndex,
                 playerId,

@@ -23,21 +23,21 @@
                 return this.configurationResult !== null;
             },
           gameFinished(){
-              return this.timer !== null;
+              return this.results !== null;
           }
         },
         data: () => {
             return {
                 configurationResult: null,
-              timer: null
+              results: null
             }
         },
         methods: {
             onPlay(configurationResult){
                 this.configurationResult = configurationResult;
             },
-            onEndgame(results){
-              this.results = results;
+            onEndgame(resultsData){
+              this.results = resultsData.results;
             }
         }
     }

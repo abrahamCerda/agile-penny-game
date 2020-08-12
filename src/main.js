@@ -2,7 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import lang from "element-ui/lib/locale/lang/es";
 import locale from "element-ui/lib/locale";
-import {InputNumber, Form, FormItem, Button, Card} from "element-ui";
+import {InputNumber, Form, FormItem,
+  Button, Card, Table, TableColumn} from "element-ui";
 
 
 Vue.config.productionTip = false
@@ -16,6 +17,8 @@ Vue.use(FormItem);
 Vue.use(InputNumber);
 Vue.use(Button);
 Vue.use(Card);
+Vue.use(Table);
+Vue.use(TableColumn);
 
 new Vue({
   render: h => h(App),

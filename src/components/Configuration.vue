@@ -110,7 +110,7 @@
                 let i = 2;
                 let quotient = Math.floor(this.form.total_number_of_coins/i);
                 let remainder = Math.floor(this.form.total_number_of_coins%i);
-                while(quotient >= 1){
+                while(quotient > 1){
                     quotient = Math.floor(this.form.total_number_of_coins/i);
                     remainder = Math.floor(this.form.total_number_of_coins%i);
                     if(remainder === 0){
